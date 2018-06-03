@@ -1,13 +1,34 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>
+<view id="adduser">  
+    <form bindsubmit="formSubmit" bindreset="formReset">  
+        <view class="section">个人信息</view>
+        <view class="section">  
+           <input type="text" class="input-text" value="{{username}}"  name="username" placeholder="请输入用户名"  disabled />  
+        </view>  
+        <view class="section">  
+            <input type="number" class="input-text" value="{{bind_phone}}" name="bind_phone" placeholder="请输入绑定的手机号码" /> 
+        </view>  
+        <view class="section">  
+            <input type="text" class="input-text" value="{{bind_email}}" name="bind_email" placeholder="请输入绑定邮箱" /> 
+        </view>  
+        <view class="section btn-area">  
+            <button formType="submit">提交</button>  
+            <!-- <button formType="reset">清空</button>   -->
+        </view>  
+    </form>  
+  
+     <!-- 黑框提示并消失 -->  
+    <toast hidden="{{toast1Hidden}}" bindchange="toast1Change">  
+        {{notice_str}}  
+    </toast>  
+    <!-- 确认框 及 提示框 -->  
+    <view class="page__bd">  
+        <modal title="确认" confirm-text="确定" cancel-text="取消" hidden="{{modalHidden}}" mask bindconfirm="confirm_one" bindcancel="cancel_one">  
+            确认提交么？  
+        </modal>  
+        <modal class="modal" hidden="{{modalHidden2}}" no-cancel bindconfirm="modalChange2" bindcancel="modalChange2">  
+            <view> 提示 </view>  
+            <view> 清空成功 </view>  
+        </modal>  
+    </view>  
+</view>  
